@@ -1,6 +1,6 @@
 $configdir=$args[0]
-$APIS=$args[1]
-$APIK=$args[2]
+$APIK=$args[1]
+$APIS=$args[2]
 $cdsvr=$args[3]
 $cdusr=$args[4]
 $cdpw=$args[5]
@@ -9,8 +9,8 @@ $configfiles = Get-ChildItem $configdir\*.cdconfig -rec
 foreach ($file in $configfiles)
 {
   (get-content $file) |
-  foreach-object {$_ -replace "IRSECRETREPLACEME", $APIS} |
   foreach-object {$_ -replace "IRKEYREPLACEME", $APIK} | 
+  foreach-object {$_ -replace "IRSECRETREPLACEME", $APIS} |
   foreach-object {$_ -replace "IRCDSVRREPLACEME", $cdsvr} | 
   foreach-object {$_ -replace "IRCDSVRUSRREPLACEME", $cdusr} | 
   foreach-object {$_ -replace "IRCDSVRUSRPWREPLACEME", $cdpw} | 

@@ -30,10 +30,10 @@ The initial setup needs to be performed by a SQL Server administrator--someone w
   *	http:// http://www.7-zip.org/
   *	Required in the scripts that automatically decompress the Canvas Data files
   
-###Step 1 – Install SQL Server
+### Step 1 – Install SQL Server
 *	Require SQL Server 2012 or higher
 
-###Step 2 – Enable xpcmdshell
+### Step 2 – Enable xpcmdshell
 *	Execute the following TSQL as a SQL Server admin (copy/paste into a New Query screen and run)
 EXEC sp_configure 'show advanced options', 1
 GO
@@ -44,13 +44,13 @@ GO
 RECONFIGURE
 GO
 
-###Step 3 – Install Node.js
+### Step 3 – Install Node.js
 1.	Download and install Node.js
 a.	Link: https://nodejs.org/en/
 b.	Select the “LTS” (long time support) version recommended for most users
 c.	Install with the standard “out of box” options
 
-###Step 4 – Download and Unzip EMU CDV
+### Step 4 – Download and Unzip EMU CDV
 1.	Download and install EMU’s Canvas Data Viewer (CDV)
   a.	Link: https://github.com/EMU-CFE/CanvasDataViewer
   b.	Download CDV.zip
@@ -68,13 +68,13 @@ c.	Install with the standard “out of box” options
     ii.	Server account user name (example: sa)
     iii.	Server account user password
     
-###Step 6 – Install the required Node.js modules
+### Step 6 – Install the required Node.js modules
 From the CanvasDataViewer folder that you unzipped 
 1.	Copy mods.bat file to the Node.js directory (C:\Program Files\nodejs)
 2.	Right-click mods.bat and Run as Administrator
 3.	(This will download/install the Node.js modules (extensions) that CanvasDataViewer needs)
 
-###Step 7 – Install the CanvasDataViewer JavaScript files
+### Step 7 – Install the CanvasDataViewer JavaScript files
 1.	Copy/paste to the Node.js directory (C:\Program Files\nodejs) 
   a.	AutoConfig.bat
   b.	AutoConfig.ps1
@@ -85,7 +85,7 @@ From the CanvasDataViewer folder that you unzipped
 2.	Right-click Run AutoConfig.bat and Run as Administrator
 3.	Enter your configuration information as gathered from Step 5 (this step will modify the scripts and insert the information you provided)
 
-###Step 8 – Create CanvasData database in SQL Server
+### Step 8 – Create CanvasData database in SQL Server
 1.	Open SQL Server Management Studio
 2.	In the ObjectExplorer click on Connect and select your database engine that you installed
 3.	In the database engine, right-click on Databases and select New Database
@@ -95,7 +95,7 @@ From the CanvasDataViewer folder that you unzipped
 7.	(N.B. The “Warning! The maximum key length is 900 bytes. …” error message is expected.  It doesn’t affect the installation and we’re working on eliminating it.)
 8.	Open the CanvasData database to confirm that tables and views have installed.
 
-###Step 9 – Run the datafile download and database loading
+### Step 9 – Run the datafile download and database loading
 1.	Open SQL Server Management Studio
 2.	In the ObjectExplorer open the CanvasData database and go to CanvasData/Programmability/Stored Procedures
 3.	Right-click on dbo.CanvasData_DownloadLatestSchemaAndTable and click “Execute Stored Procedure…”.  This process accesses Canvas API endpoints to download the current Canvas Data table schema.  It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files.  This can take up to an hour or more.

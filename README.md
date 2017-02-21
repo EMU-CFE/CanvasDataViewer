@@ -20,16 +20,16 @@ The initial setup needs to be performed by a SQL Server administrator--someone w
 ### Requirements
 
 *	Windows OS 
-    *	Windows 7 or newer 
-    *	–  or  –   
-    *	Windows 2012 Server or newer
-    *	4GB+ RAM (2GB will run too slow)
+   *	Windows 7 or newer 
+   *	–  or  –   
+   *	Windows 2012 Server or newer
+   *	4GB+ RAM (2GB will run too slow)
 *	Admin privileges on the user account
-    *	Many instructions tell you to “Run as Admin”
-    *	Usually you right-click on the file and “Run as Admin” is a menu choice
+   *	Many instructions tell you to “Run as Admin”
+   *	Usually you right-click on the file and “Run as Admin” is a menu choice
 *	7-zip
-    * [http://http://www.7-zip.org/](http://http://www.7-zip.org/)
-    *	Required in the scripts that automatically decompress the Canvas Data files
+   * [http://http://www.7-zip.org/](http://http://www.7-zip.org/)
+   *	Required in the scripts that automatically decompress the Canvas Data files
   
 ### Step 1 – Install SQL Server
 
@@ -65,18 +65,14 @@ GO
 
 1.	Use the SampleConfigurationInputs.txt file to collect your configuration information.  
 2.	Items needed:
-
-    a.	Your Node.js install path (example: C:\Program Files\nodejs)
-    b.	Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site)
-    
-        i.	Canvas Data API Secret
-        ii.	Canvas Data API Key
-        
-    c.	Your SQL Server Information
-    
-        i.	Server Instance Name
-        ii.	Server account user name (example: sa)
-        iii.	Server account user password
+   a.	Your Node.js install path (example: C:\Program Files\nodejs)
+   b.	Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site)
+      i. Canvas Data API Secret
+      ii. Canvas Data API Key
+   c.	Your SQL Server Information
+      i. Server Instance Name
+      ii. Server account user name (example: sa)
+      iii. Server account user password
     
 ### Step 6 – Install the required Node.js modules
 From the CanvasDataViewer folder that you unzipped 

@@ -1,4 +1,6 @@
-### Welcome to CanvasDataViewer!
+# Welcome to CanvasDataViewer!
+
+## Project Description
 
 Our project is used to automatically download Canvas Data files into a SQL Server database where you can query and analyze the information.  Canvas is a proprietary learning management system widely used in higher education and K12, and Canvas Data is the big data service that allows you to download all user activity data for your own use.  
 
@@ -16,6 +18,8 @@ CanvasDataViewer need to be installed on Microsoft SQL Server, preferably SQL Se
 ### Who needs to set it up and how long will it take?
 
 The initial setup needs to be performed by a SQL Server administrator--someone who knows their way around SQL Server Management Studio and Windows Server.  The basic setup can be done in a few hours, although some users may run into problems that can make it a multi-day project.
+
+## Installation
 
 ### Requirements
 

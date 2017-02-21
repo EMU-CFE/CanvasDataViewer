@@ -118,4 +118,11 @@ From the CanvasDataViewer folder that you unzipped
     *	dbo.CanvasData_DownloadLatestSchemaAndTable
     *	dbo.CanvasData_TableBuild
 
+## Contributing
 
+## Credits
+
+* Bill Jones
+* Andrew Anders
+
+## Licensing

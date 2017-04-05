@@ -1,11 +1,14 @@
 Node.js Path: 
 (The Node.js installer will ask you where you want to install the files.  Accept the default, which is C:\Program Files\nodejs.  You will need to copy a number of files into this folder in a later step.)
 
+Canvas Data API Secret: 
+(These can be found in your Canvas Data Portal page.  You find this in your main Canvas account left-hand menu.  Copy the credentials string right off the webpage.)
+
 Canvas Data API Key: 
 (These can be found in your Canvas Data Portal page.  You find this in your main Canvas account left-hand menu.  Copy the credentials string right off the webpage.)
 
-Canvas Data API Secret: 
-(These can be found in your Canvas Data Portal page.  You find this in your main Canvas account left-hand menu.  Copy the credentials string right off the webpage.)
+Downloaded Files path: 
+(For example: C:/CanvasDataDownload. Be mindful of the forward slash here)
 
 Server Name: MyCampus
 (This is the name of your SQL Server instance.  In the SQL Server Management Studio ObjectExplorer, right-click on the main server and select Properties.  The server name is the first variable shown.)

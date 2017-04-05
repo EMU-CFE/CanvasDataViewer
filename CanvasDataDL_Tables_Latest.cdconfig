@@ -1,0 +1,62 @@
+var fs = require('fs');
+var async = require('async');
+var https = require('https');
+var request = require('request');
+var CanvasDataAPICall = require('./CanvasDataAuth_Tables.js');
+
+var dir = "IRCDDLDIRREPLACEME";
+
+var q = async.queue(function(task, cb) {
+  var dl = fs.createWriteStream(dir + task.target)
+
+  request
+    .get(task.url)
+    .on('response', function(response) {
+      var conlenmb = response.headers['content-length'] / 1024 / 1024;
+      var size = conlenmb | 0;
+      console.log(task.target + ', Response: ' + response.statusCode + ', Size in MB: ' + size + ', Type: ' +  response.headers['content-type']);
+    })
+    .on('error', function(err) {
+      console.log(err);
+      cb(err);
+    })
+    .pipe(dl);
+      dl.on('finish', function(){
+        cb();
+      });
+}, 20);
+
+q.drain = function() {
+  console.log('Done.')
+};
+
+CanvasDataAPICall('', function(result) {
+      
+      if (!fs.existsSync(dir)){
+          fs.mkdirSync(dir);
+      }
+
+      res=result
+        //console.log(res);
+      abt=res.artifactsByTable
+        //console.log(tables);
+
+      for (var tables in abt) {
+        if (abt.hasOwnProperty(tables)) {
+          var tableObj = abt[tables];
+          console.log(tableObj);
+
+            tableObj.files.forEach(function(file) {
+            var url = file.url;
+            var filename = file.filename;
+            file.target = filename;
+
+            q.push(file, function(err) {
+              if (err) {
+                console.log(err);
+              }
+            });
+          });
+        }
+      }
+});      

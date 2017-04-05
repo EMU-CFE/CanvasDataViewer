@@ -1,0 +1,12 @@
+@echo off
+set /p configdir= Node.js Path: 
+set /p APIS= Canvas Data API Secret: 
+set /p APIK= Canvas Data API Key: 
+set /p dldir= Download Path:
+set /p cdsvr= Server Name:
+set /p cdusr= Server User:
+set /p cdpw= Server USR PW:
+powershell -ExecutionPolicy ByPass -File "%configdir%"/AutoConfig.ps1 "%configdir%" "%APIS%" "%APIK%" "%dldir%" "%cdsvr%" "%cdusr%" "%cdpw%"
+pause
+cd "%configdir%" 
+ren *.cdconfig *.js

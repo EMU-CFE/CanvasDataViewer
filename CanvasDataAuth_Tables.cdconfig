@@ -1,0 +1,97 @@
+//Adding necessary node modules
+var querystring = require('querystring');
+var https = require('https');
+var dateFormat = require('dateformat');
+var crypto = require('crypto');  
+var url = require('url');  
+
+//Declaring and assembling pieces for HMAC auth
+var date = Date();
+var timestamp = dateFormat(date, "ddd, d mmm yyyy H:MM:ss Z");
+
+//Insert your CanvasAPI API Secret
+var secret = 'IRSECRETREPLACEME';  
+
+//Insert your CanvasAPI API Key 
+var key = 'IRKEYREPLACEME';  
+
+var opts = {  
+  method: 'GET',  
+  host: 'portal.inshosteddata.com',  
+  path: 'https://portal.inshosteddata.com/api/account/self/file/latest'  
+};  
+var HMAC_ALG = 'sha256';  
+
+//Assembling Canvas Data Auth credentials
+var apiAuth = module.exports = {  
+  buildMessage: function(secret, timestamp, reqOpts) {  
+    var urlInfo = url.parse(reqOpts.path, true)  
+    var sortedParams = Object.keys(urlInfo.query).sort(function(a, b) {  
+      return a.localeCompare(b)  
+    })  
+    var sortedParts = []  
+    for (var i = 0; i < sortedParams.length; i++) {  
+      var paramName = sortedParams[i]  
+      sortedParts.push(paramName + '=' + urlInfo.query[paramName])  
+    }  
+    var parts = [  
+      reqOpts.method.toUpperCase(),  
+      reqOpts.host || '',  
+      reqOpts.contentType || '',  
+      reqOpts.contentMD5 || '',  
+      urlInfo.pathname,  
+      sortedParts.join('&') || '',  
+      timestamp,  
+      secret  
+    ]  
+    return parts.join('\n')  
+  },  
+  buildHmacSig: function(secret, timestamp, reqOpts) {  
+    var message = apiAuth.buildMessage(secret, timestamp, reqOpts)  
+    var hmac = crypto.createHmac(HMAC_ALG, new Buffer(secret))  
+    hmac.update(message)  
+    return hmac.digest('base64')  
+  }  
+}  
+
+var HMACSig = apiAuth.buildHmacSig(secret, timestamp, opts);
+var Auth = 'HMACAuth ' + key;
+
+
+//Preparing HTTP headers for Canvas Data get request
+var GETheaders = {
+    'Authorization' : Auth+':'+HMACSig,
+    'Date' : timestamp
+}; 
+
+var optionsget = {
+    headers: GETheaders,
+    host : 'portal.inshosteddata.com', // here only the domain name
+    // (no http/https !)
+    port : 443,
+    // this is the endpoint for the latest data dump
+    path : 'https://portal.inshosteddata.com/api/account/self/file/latest',  //the rest of the url with parameters if needed
+    method : 'GET' // do GET
+};
+
+
+//This function (with the necessary callback) is where we return the object containing our URL(s) for table(s)
+var CanvasDataAPICall = function(input, cb) {
+
+  getCall = function(response) {
+    var data = [];
+    response.setEncoding('utf8');
+    response.on('data', function (chunk) {
+        data.push(chunk)
+      });
+    response.on('end', function () {
+        var result = JSON.parse(data.join(''))
+        cb(result);
+      });
+  }
+  var req = https.request(optionsget, getCall);
+  req.end();
+
+}  
+
+module.exports = CanvasDataAPICall;

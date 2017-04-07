@@ -7,7 +7,7 @@ var CanvasDataAPICall = require('./CanvasDataAuth_Tables.js');
 var dir = "IRCDDLDIRREPLACEME";
 
 var q = async.queue(function(task, cb) {
-  var dl = fs.createWriteStream(dir + task.target)
+  var dl = fs.createWriteStream(dir + '/' + task.target)
 
   request
     .get(task.url)

@@ -97,6 +97,8 @@ From the CanvasDataViewer folder that you unzipped
 
 ### Step 8 – Create CanvasDataStore database in SQL Server
 
+CanvasDataStore is a SQL Server database that houses Canvas Data and the stored procedures that download and install the data.
+
 1.	Open SQL Server Management Studio
 2.	In the ObjectExplorer click on Connect and select your database engine that you installed
 3.	In the database engine, right-click on Databases and select New Database
@@ -116,6 +118,21 @@ From the CanvasDataViewer folder that you unzipped
 *	Finally, set up two SQL Server Agent jobs to run the two processes at night.  Set the second process to run at least two hours after the first one.:
     *	dbo.CanvasData_General_DownloadLatestSchemaAndTables
     *	dbo.CanvasData_General_TableBuild
+    
+
+### Step 10 – Create CanvasDataLevel1 database in SQL Server
+
+CanvasDataLevel1 is a SQL Server database that contains views to query Canvas Data.  These views all draw on data in the CanvasDataStore database. (CanvasDataLevel1 doesn't store any data of its own.)
+
+You need to install CanvasDataLevel1 *after* you've successfully downloaded your Canvas Data into CanvasDataStore.  Otherwise the install will fail.
+
+1.	Open SQL Server Management Studio
+2.	In the ObjectExplorer click on Connect and select your database engine that you installed
+3.	In the database engine, right-click on Databases and select New Database
+4.	In Database Name enter “CanvasDataLevel1” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
+5.	Right-click on Databases and click Refresh to make sure CanvasDataLevel has appeared
+6.	In the top menu click on File > Open > File.  In the dialog box, find/highlight the CanvasDataLevel1_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window.  Click Execute (F5).
+7.	Open the CanvasDataLevel1 database to confirm that the views have installed.
 
 ## Contributing
 

@@ -4,7 +4,7 @@
 
 Our project is used to automatically download Canvas Data files into a SQL Server database where you can query and analyze the information.  Canvas is a proprietary learning management system widely used in higher education and K12, and Canvas Data is the big data service that allows you to download all user activity data for your own use.  
 
-Canvas Data files are very large--currently a full download includes at least one file for each of 63 tables, and some tables require more than one file.  For a large campus each daily download can include more than 8GB of files that contain millions of database records.  Manually downloading Canvas Data files from the Canvas web interface and loading them into a database can take hours.  Our CanvasDataViewer automates this process.  When set up with a SQL job agent to run the process at night, you can come to work every morning with fresh Canvas Data waiting for you to analyze.
+Canvas Data files are very large--currently a full download includes at least one file for each of 82 tables, and some tables require more than one file.  For a large campus each daily download can include more than 8GB of files that contain millions of database records.  Manually downloading Canvas Data files from the Canvas web interface and loading them into a database can take hours.  Our CanvasDataViewer automates this process.  When set up with a SQL job agent to run the process at night, you can come to work every morning with fresh Canvas Data waiting for you to analyze.
 
 ### Who will find this useful?  
 
@@ -95,27 +95,27 @@ From the CanvasDataViewer folder that you unzipped
 2.	Right-click Run AutoConfig.bat and Run as Administrator
 3.	Enter your configuration information as gathered from Step 5 (this step will modify the scripts and insert the information you provided)
 
-### Step 8 – Create CanvasData database in SQL Server
+### Step 8 – Create CanvasDataStore database in SQL Server
 
 1.	Open SQL Server Management Studio
 2.	In the ObjectExplorer click on Connect and select your database engine that you installed
 3.	In the database engine, right-click on Databases and select New Database
-4.	In Database Name enter “CanvasData” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
-5.	Right-click on Databases and click Refresh to make sure CanvasData has appeared
-6.	In the top menu click on File > Open > File.  In the dialog box, find/highlight the CanvasDataViewer_SQLScript_... file in the CDV scripts. The script should open in a New Query window.  Click Execute (F5).
+4.	In Database Name enter “CanvasDataStore” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
+5.	Right-click on Databases and click Refresh to make sure CanvasDataStore has appeared
+6.	In the top menu click on File > Open > File.  In the dialog box, find/highlight the CanvasDataStore_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window.  Click Execute (F5).
 7.	(N.B. The “Warning! The maximum key length is 900 bytes. …” error message is expected.  It doesn’t affect the installation and we’re working on eliminating it.)
-8.	Open the CanvasData database to confirm that tables and views have installed.
+8.	Open the CanvasDataStore database to confirm that tables have installed.
 
 ### Step 9 – Run the datafile download and database loading
 
 1.	Open SQL Server Management Studio
-2.	In the ObjectExplorer open the CanvasData database and go to CanvasData/Programmability/Stored Procedures
-3.	Right-click on dbo.CanvasData_DownloadLatestSchemaAndTable and click “Execute Stored Procedure…”.  This process accesses Canvas API endpoints to download the current Canvas Data table schema.  It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files.  This can take up to an hour or more.
-4.	Right-click on dbo.CanvasData_TableBuild and click “Execute Stored Procedure…”.  This process creates tables to hold the data according to the latest schema.  Then it loads all the datafiles into import tables.  Finally it transfers all the data to production tables and builds indexes on them to aid searching.  This process can take several hours depending on the amount of data in your instance.
+2.	In the ObjectExplorer open the CanvasDataStore database and go to CanvasDataStore/Programmability/Stored Procedures
+3.	Right-click on dbo.CanvasData_General_DownloadLatestSchemaAndTables and click “Execute Stored Procedure…”.  This process accesses Canvas API endpoints to download the current Canvas Data table schema.  It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files.  This can take up to an hour or more.
+4.	Right-click on dbo.CanvasData_General_TableBuild and click “Execute Stored Procedure…”.  This process creates tables to hold the data according to the latest schema.  Then it loads all the datafiles into import tables.  Finally it transfers all the data to production tables and builds indexes on them to aid searching.  This process can take several hours depending on the amount of data in your instance.
 
 *	Finally, set up two SQL Server Agent jobs to run the two processes at night.  Set the second process to run at least two hours after the first one.:
-    *	dbo.CanvasData_DownloadLatestSchemaAndTable
-    *	dbo.CanvasData_TableBuild
+    *	dbo.CanvasData_General_DownloadLatestSchemaAndTables
+    *	dbo.CanvasData_General_TableBuild
 
 ## Contributing
 

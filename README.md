@@ -11,7 +11,7 @@ Canvas Data files are very large--currently a full download includes at least on
 We think the most likely use case will be campuses that want to evaluate the Canvas Data product as a source of information for teachers and program managers.  When schools implement a long-term Canvas Data program they will most likely want to purchase a license for a hosted data repository like Amazon Redshift that can automatically accept Canvas Data.  
 CanvasDataViewer may be suitable for long-term use--we have built the system to download the latest data schema from Canvas and built the database table to suit.  But we have seen the Canvas Data service change over time, so we can't be sure that our application won't break at some point and need updates.
 
-###What do I need?
+### What do I need?
 
 CanvasDataViewer need to be installed on Microsoft SQL Server, preferably SQL Server 2012 or later.  You cannot use the free SQL Server Express product because it has a 10GB limit.  All other components, like the node.js libraries, can be downloaded for free.
 

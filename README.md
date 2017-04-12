@@ -115,13 +115,26 @@ CanvasDataStore is a SQL Server database that houses Canvas Data and the stored 
 3.	Right-click on dbo.CanvasData_General_DownloadLatestSchemaAndTables and click “Execute Stored Procedure…”.  This process accesses Canvas API endpoints to download the current Canvas Data table schema.  It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files.  This can take up to an hour or more.
 4.	Right-click on dbo.CanvasData_General_TableBuild and click “Execute Stored Procedure…”.  This process creates tables to hold the data according to the latest schema.  Then it loads all the datafiles into import tables.  Finally it transfers all the data to production tables and builds indexes on them to aid searching.  This process can take several hours depending on the amount of data in your instance.
 
-### Step 10 - Set up SQL Server Job Agents
+### Step 10 - Set up SQL Server Agent Jobs
 
-*	Finally, set up two SQL Server Agent jobs to run the two processes at night.  
-* Set the second process to run at least two hours after the first one.:
-    *	dbo.CanvasData_General_DownloadLatestSchemaAndTables
-    *	dbo.CanvasData_General_TableBuild
-    
+SQL Server Agent is a scheduler system that can run processes automatically.  
+
+* Open SQL Server Agent
+* Right-click on Jobs and select New Job
+* Enter the following info:
+  * General/Name
+  * Steps - click on New:
+    * Step Name
+    * Database - change to CanvasDataStore
+    * In Command window - "EXEC dbo.CanvasDataStore_General_DownloadLatestSchemaAndTables"
+    * Click OK
+  * Schedules - click on New:
+    * Name
+    * Frequency - "Daily"
+    * Daily frequency - 1:00 AM
+    * Click OK
+
+Repeat this process to create a job for *dbo.CanvasData_General_TableBuild* at 2:00 AM
 
 ### Step 11 – Create CanvasDataLevel1 database in SQL Server
 

@@ -64,7 +64,7 @@ GO
     b.	Download CDV.zip
     c.	Extract all files to your preferred location
   
-###Step 5– Gather configuration information
+### Step 5– Gather configuration information
 
 1.	Use the SampleConfigurationInputs.txt file to collect your configuration information.  
 2.	Items needed:
@@ -115,12 +115,15 @@ CanvasDataStore is a SQL Server database that houses Canvas Data and the stored 
 3.	Right-click on dbo.CanvasData_General_DownloadLatestSchemaAndTables and click “Execute Stored Procedure…”.  This process accesses Canvas API endpoints to download the current Canvas Data table schema.  It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files.  This can take up to an hour or more.
 4.	Right-click on dbo.CanvasData_General_TableBuild and click “Execute Stored Procedure…”.  This process creates tables to hold the data according to the latest schema.  Then it loads all the datafiles into import tables.  Finally it transfers all the data to production tables and builds indexes on them to aid searching.  This process can take several hours depending on the amount of data in your instance.
 
-*	Finally, set up two SQL Server Agent jobs to run the two processes at night.  Set the second process to run at least two hours after the first one.:
+### Step 10 - Set up SQL Server Job Agents
+
+*	Finally, set up two SQL Server Agent jobs to run the two processes at night.  
+* Set the second process to run at least two hours after the first one.:
     *	dbo.CanvasData_General_DownloadLatestSchemaAndTables
     *	dbo.CanvasData_General_TableBuild
     
 
-### Step 10 – Create CanvasDataLevel1 database in SQL Server
+### Step 11 – Create CanvasDataLevel1 database in SQL Server
 
 CanvasDataLevel1 is a SQL Server database that contains views to query Canvas Data.  These views all draw on data in the CanvasDataStore database. (CanvasDataLevel1 doesn't store any data of its own.)
 

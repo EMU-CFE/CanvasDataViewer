@@ -126,7 +126,7 @@ SQL Server Agent is a scheduler system that can run processes automatically.
   * Steps - click on New:
     * Step Name
     * Database - change to CanvasDataStore
-    * In Command window - "EXEC dbo.CanvasDataStore_General_DownloadLatestSchemaAndTables"
+    * In Command window - "EXEC dbo.CanvasData_General_DownloadSchemaAndTables"
     * Click OK
   * Schedules - click on New:
     * Name

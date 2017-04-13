@@ -56,65 +56,82 @@ Download and install Node.js
 
 ### Step 4 – Download and Unzip EMU CDV
 
-Download and install EMU’s Canvas Data Viewer (CDV) a. Link: https://github.com/EMU-CFE/CanvasDataViewer b. Download CDV.zip c. Extract all files to your preferred location
+Download and install EMU’s Canvas Data Viewer (CDV) 
+1. Link: https://github.com/EMU-CFE/CanvasDataViewer 
+2. Download CDV.zip 
+3. Extract all files to your preferred location
 
 ### Step 5– Gather configuration information
 
 Use the SampleConfigurationInputs.txt file to collect your configuration information.
-Items needed: a. Your Node.js install path (example: C:\Program Files\nodejs) b. Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site) i. Canvas Data API Secret ii. Canvas Data API Key c. Your SQL Server Information i. Server Instance Name ii. Server account user name (example: sa) iii. Server account user password
+Items needed: 
+1. Your Node.js install path (example: C:\Program Files\nodejs) 
+2. Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site) 
+   1. Canvas Data API Secret 
+   2. Canvas Data API Key 
+3. Your SQL Server Information 
+   1. Server Instance Name 
+   2. Server account user name (example: sa) 
+   3. Server account user password
 
 ### Step 6 – Install the required Node.js modules
 
 From the CanvasDataViewer folder that you unzipped
 
-Copy mods.bat file to the Node.js directory (C:\Program Files\nodejs)
-Right-click mods.bat and Run as Administrator
-(This will download/install the Node.js modules (extensions) that CanvasDataViewer needs)
+1. Copy mods.bat file to the Node.js directory (C:\Program Files\nodejs)
+2. Right-click mods.bat and Run as Administrator (This will download/install the Node.js modules (extensions) that CanvasDataViewer needs)
 
 ### Step 7 – Install the CanvasDataViewer JavaScript files
 
-Copy/paste to the Node.js directory (C:\Program Files\nodejs) a. AutoConfig.bat b. AutoConfig.ps1 c. CanvasData_Schema_Latest.cdconfig d. CanvasData_Tables_Latest.cdconfig e. CanvasDataAuth_Schema.cdconfig f. CanvasDataAuth_Tables.cdconfig
-Right-click Run AutoConfig.bat and Run as Administrator
-Enter your configuration information as gathered from Step 5 (this step will modify the scripts and insert the information you provided)
+Copy/paste to the Node.js directory (C:\Program Files\nodejs) 
+* AutoConfig.bat 
+* AutoConfig.ps1 
+* CanvasData_Schema_Latest.cdconfig 
+* CanvasData_Tables_Latest.cdconfig 
+* CanvasDataAuth_Schema.cdconfig 
+* CanvasDataAuth_Tables.cdconfig
+
+Right-click Run AutoConfig.bat and Run as Administrator. Enter your configuration information as gathered from Step 5 (this step will modify the scripts and insert the information you provided)
 
 ### Step 8 – Create CanvasDataStore database in SQL Server
 
 CanvasDataStore is a SQL Server database that houses Canvas Data and the stored procedures that download and install the data.
 
 Open SQL Server Management Studio
-In the ObjectExplorer click on Connect and select your database engine that you installed
-In the database engine, right-click on Databases and select New Database
-In Database Name enter “CanvasDataStore” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
-Right-click on Databases and click Refresh to make sure CanvasDataStore has appeared
-In the top menu click on File > Open > File. In the dialog box, find/highlight the CanvasDataStore_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window. Click Execute (F5).
-(N.B. The “Warning! The maximum key length is 900 bytes. …” error message is expected. It doesn’t affect the installation and we’re working on eliminating it.)
-Open the CanvasDataStore database to confirm that tables have installed.
+* In the ObjectExplorer click on Connect and select your database engine that you installed
+* In the database engine, right-click on Databases and select New Database
+* In Database Name enter “CanvasDataStore” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
+* Right-click on Databases and click Refresh to make sure CanvasDataStore has appeared
+* In the top menu click on File > Open > File. In the dialog box, find/highlight the CanvasDataStore_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window. Click Execute (F5).
+* (N.B. The “Warning! The maximum key length is 900 bytes. …” error message is expected. It doesn’t affect the installation and we’re working on eliminating it.)
+* Open the CanvasDataStore database to confirm that tables have installed.
 
 ### Step 9 – Run the datafile download and database loading
 
-Open SQL Server Management Studio
-In the ObjectExplorer open the CanvasDataStore database and go to CanvasDataStore/Programmability/Stored Procedures
-Right-click on dbo.CanvasData_General_DownloadLatestSchemaAndTables and click “Execute Stored Procedure…”. This process accesses Canvas API endpoints to download the current Canvas Data table schema. It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files. This can take up to an hour or more.
-Right-click on dbo.CanvasData_General_TableBuild and click “Execute Stored Procedure…”. This process creates tables to hold the data according to the latest schema. Then it loads all the datafiles into import tables. Finally it transfers all the data to production tables and builds indexes on them to aid searching. This process can take several hours depending on the amount of data in your instance.
+* Open SQL Server Management Studio
+* In the ObjectExplorer open the CanvasDataStore database and go to CanvasDataStore/Programmability/Stored Procedures
+* Right-click on dbo.CanvasData_General_DownloadLatestSchemaAndTables and click “Execute Stored Procedure…”. This process accesses Canvas API endpoints to download the current Canvas Data table schema. It also downloads all the actual Canvas Data data, which is packaged in comma-delimited text files. This can take up to an hour or more.
+* Right-click on dbo.CanvasData_General_TableBuild and click “Execute Stored Procedure…”. This process creates tables to hold the data according to the latest schema. Then it loads all the datafiles into import tables. Finally it transfers all the data to production tables and builds indexes on them to aid searching. This process can take several hours depending on the amount of data in your instance.
 
 ### Step 10 - Set up SQL Server Agent Jobs
 
 SQL Server Agent is a scheduler system that can run processes automatically.
 
-Open SQL Server Agent
-Right-click on Jobs and select New Job
-Enter the following info:
-General/Name
-Steps - click on New:
-Step Name
-Database - change to CanvasDataStore
-In Command window - "EXEC dbo.CanvasData_General_DownloadSchemaAndTables"
-Click OK
-Schedules - click on New:
-Name
-Frequency - "Daily"
-Daily frequency - 1:00 AM
-Click OK
+* Open SQL Server Agent
+* Right-click on Jobs and select New Job
+* Enter the following info:
+   * General/Name
+* Steps - click on New:
+   * Step Name
+   * Database - change to CanvasDataStore
+   * In Command window - "EXEC dbo.CanvasData_General_DownloadSchemaAndTables"
+* Click OK
+* Schedules - click on New:
+   * Name
+   * Frequency - "Daily"
+   * Daily frequency - 1:00 AM
+   * Click OK
+   
 Repeat this process to create a job for dbo.CanvasData_General_TableBuild at 2:00 AM
 
 
@@ -125,12 +142,12 @@ CanvasDataLevel1 is a SQL Server database that contains views to query Canvas Da
 You need to install CanvasDataLevel1 after you've successfully downloaded your Canvas Data into CanvasDataStore. Otherwise the install will fail.
 
 Open SQL Server Management Studio
-In the ObjectExplorer click on Connect and select your database engine that you installed
-In the database engine, right-click on Databases and select New Database
-In Database Name enter “CanvasDataLevel1” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
-Right-click on Databases and click Refresh to make sure CanvasDataLevel has appeared
-In the top menu click on File > Open > File. In the dialog box, find/highlight the CanvasDataLevel1_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window. Click Execute (F5).
-Open the CanvasDataLevel1 database to confirm that the views have installed.
+* In the ObjectExplorer click on Connect and select your database engine that you installed
+* In the database engine, right-click on Databases and select New Database
+* In Database Name enter “CanvasDataLevel1” and click OK (Leave all other settings as default. You must use this name because it is hard-coded into all the scripts.)
+* Right-click on Databases and click Refresh to make sure CanvasDataLevel has appeared
+* In the top menu click on File > Open > File. In the dialog box, find/highlight the CanvasDataLevel1_mmddyy_hhmm.sql ... file in the CDV scripts. The script should open in a New Query window. Click Execute (F5).
+* Open the CanvasDataLevel1 database to confirm that the views have installed.
 
 ### Contributing
 

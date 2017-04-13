@@ -1,4 +1,5 @@
 # Welcome to CanvasDataViewer!
+### A Project at [Eastern Michigan University](http://www.emich.edu/)
 
 ## Project Description
 

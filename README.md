@@ -26,15 +26,15 @@ The initial setup needs to be performed by a SQL Server administrator--someone w
 ### Requirements
 
 * Windows OS
-    * Windows 7 or newer
-    * – or –
-    * Windows 2012 Server or newer
-    * 4GB+ RAM (2GB will run too slow)
-  * Admin privileges on the user account
-    * Many instructions tell you to “Run as Admin”
-    * Usually you right-click on the file and “Run as Admin” is a menu choice
-  * 7-zip (http://www.7-zip.org)
-    * Required in the scripts that automatically decompress the Canvas Data files
+  * Windows 7 or newer
+  * – or –
+  * Windows 2012 Server or newer
+  * 4GB+ RAM (2GB will run too slow)
+* Admin privileges on the user account
+  * Many instructions tell you to “Run as Admin”
+  * Usually you right-click on the file and “Run as Admin” is a menu choice
+* 7-zip (http://www.7-zip.org)
+  * Required in the scripts that automatically decompress the Canvas Data files
 
 ### Step 1 – Install SQL Server
 

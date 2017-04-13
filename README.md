@@ -42,11 +42,17 @@ Require SQL Server 2012 or higher
 
 ### Step 2 – Enable xpcmdshell
 
-Execute the following TSQL as a SQL Server admin (copy/paste into a New Query screen and run) EXEC sp_configure 'show advanced options', 1 GO RECONFIGURE GO EXEC sp_configure 'xp_cmdshell', 1 GO RECONFIGURE GO
+Execute the following TSQL as a SQL Server admin (copy/paste into a New Query screen and run) 
+* EXEC sp_configure 'show advanced options'
+* 1 GO RECONFIGURE GO EXEC sp_configure 'xp_cmdshell'
+* 1 GO RECONFIGURE GO
 
 ### Step 3 – Install Node.js
 
-Download and install Node.js a. Link: https://nodejs.org/en/ b. Select the “LTS” (long time support) version recommended for most users c. Install with the standard “out of box” options
+Download and install Node.js 
+1. Link: https://nodejs.org/en/ 
+2. Select the “LTS” (long time support) version recommended for most users 
+3. Install with the standard “out of box” options
 
 ### Step 4 – Download and Unzip EMU CDV
 

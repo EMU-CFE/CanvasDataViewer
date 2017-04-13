@@ -69,14 +69,14 @@ GO
 
 1.	Use the SampleConfigurationInputs.txt file to collect your configuration information.  
 2.	Items needed:
-   a.	Your Node.js install path (example: C:\Program Files\nodejs)
-   b.	Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site)
-      i. Canvas Data API Secret
-      ii. Canvas Data API Key
-   c.	Your SQL Server Information
-      i. Server Instance Name
-      ii. Server account user name (example: sa)
-      iii. Server account user password
+     a.	Your Node.js install path (example: C:\Program Files\nodejs)
+     b.	Your Canvas Data credentials (from the Canvas Data Portal menu in your Canvas site)
+          i. Canvas Data API Secret
+          ii. Canvas Data API Key
+     c.	Your SQL Server Information
+          i. Server Instance Name
+          ii. Server account user name (example: sa)
+          iii. Server account user password
     
 ### Step 6 – Install the required Node.js modules
 From the CanvasDataViewer folder that you unzipped 

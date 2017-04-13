@@ -154,7 +154,7 @@ You need to install CanvasDataLevel1 *after* you've successfully downloaded your
 
 ## Credits
 
-* Bill Jones
+* [Bill Jones](https://www.linkedin.com/in/wirjones525/)
 * Andrew Anders
 
 ## Licensing

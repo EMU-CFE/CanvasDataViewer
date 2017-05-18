@@ -162,7 +162,7 @@ Open SQL Server Management Studio
 
 ### Credits
 
-Bill Jones
-Andrew Anders
+[Bill Jones](https://www.linkedin.com/in/wirjones525/)
+[Andrew Anders](https://www.linkedin.com/in/andrew-a-54108)
 
 ### Licensing

@@ -90,6 +90,7 @@ Copy/paste to the Node.js directory (C:\Program Files\nodejs)
 * CanvasData_Tables_Latest.cdconfig 
 * CanvasDataAuth_Schema.cdconfig 
 * CanvasDataAuth_Tables.cdconfig
+* DownloadLatestSchemaAndTables.bat
 
 Right-click Run AutoConfig.bat and Run as Administrator. Enter your configuration information as gathered from Step 5 (this step will modify the scripts and insert the information you provided)
 

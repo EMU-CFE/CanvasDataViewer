@@ -4,7 +4,7 @@
 
 ## Project Description
 
-Our project is used to automatically download Canvas Data files (specifically the latest dump that can be downloaded) into a SQL Server database where you can query and analyze the information. Canvas is a proprietary learning management system widely used in higher education and K12, and Canvas Data is the big data service that allows you to download all user activity data for your own use.
+Our project is used to automatically download Canvas Data files (specifically, the latest/daily set that can be downloaded) into a SQL Server database where you can query and analyze the information. Canvas is a proprietary learning management system widely used in higher education and K12, and Canvas Data is the big data service that allows you to download all user activity data for your own use.
 
 Canvas Data files are very large--currently a full download includes at least one file for each of 80+ tables with many tables requiring more than one file. For a large campus each daily download can include more than 10GB of files that contain millions of database records. Manually downloading Canvas Data files from the Canvas web interface and loading them into a database can take hours. Our CanvasDataViewer automates this process. When set up with a SQL job agent to run the process at night, you can come to work every morning with fresh Canvas Data waiting for you to analyze.
 
